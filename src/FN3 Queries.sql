@@ -41,3 +41,56 @@ SELECT DISTINCT type, SUM(amount) AS total_amount FROM TRANSACTIONS GROUP BY typ
 SELECT account_id, balance, currency FROM ACCOUNTS WHERE status <> 0 GROUP BY account_id, balance, currency ORDER BY balance DESC
 SELECT DISTINCT value, description FROM KYC ORDER BY value DESC
 SELECT category, COUNT(product_id) AS product_count FROM ACCOUNT_STRUCT GROUP BY category ORDER BY product_count DESC
+
+-- SELECT AVG(balance) AS average_balance
+-- FROM ACCOUNTS a
+-- WHERE EXISTS (
+--     SELECT 1
+--     FROM CUSTOMERS c
+--     WHERE c.customer_id = a.customer_id
+--       AND c.status = 1
+-- );
+--
+-- SELECT ca.customer_id, c.first_name, c.last_name, ca.province_state, ca.country
+-- FROM CUSTOMER_ADDRESS ca
+-- JOIN CUSTOMERS c ON ca.customer_id = c.customer_id
+-- WHERE ca.country = 'USA'
+-- MINUS
+-- SELECT c.customer_id, c.first_name, c.last_name, ca.province_state, ca.country
+-- FROM CUSTOMER_ADDRESS ca
+-- JOIN CUSTOMERS c ON ca.customer_id = c.customer_id
+-- WHERE ca.country = 'USA' AND c.first_name LIKE 'J%'
+-- ORDER BY first_name, last_name ASC;
+--
+-- SELECT k.value, k.description, c.customer_id, c.first_name, c.last_name
+-- FROM KYC k
+-- JOIN CUSTOMERS c ON k.value = c.kyc_flag
+-- WHERE k.value = (SELECT MAX(value) FROM KYC)
+-- GROUP BY k.value, k.description, c.customer_id, c.first_name, c.last_name
+-- UNION
+-- SELECT k.value, k.description, c.customer_id, c.first_name, c.last_name
+-- FROM KYC k
+-- JOIN CUSTOMERS c ON k.value = c.kyc_flag
+-- WHERE k.value = (SELECT MIN(value) FROM KYC)
+-- GROUP BY k.value, k.description, c.customer_id, c.first_name, c.last_name
+-- ORDER BY value DESC;
+--
+-- SELECT c.first_name, c.last_name, c.email, SUM(t.amount) AS total_amount
+-- FROM ACCOUNTS a
+--          JOIN CUSTOMERS c ON a.customer_id = c.customer_id
+--          JOIN TRANSACTIONS t ON a.account_id = t.account_id
+-- WHERE EXISTS (
+--     SELECT 1
+--     FROM TRANSACTIONS t
+--     WHERE a.account_id = t.account_id
+-- )
+-- GROUP BY c.first_name, c.last_name, c.email
+-- HAVING SUBSTR(c.email, -4) = '.com'
+-- ORDER BY total_amount DESC;
+--
+-- SELECT c.first_name, c.last_name, COUNT(a.account_id) AS number_of_accounts, SUM(a.balance) AS total_balance
+-- FROM CUSTOMERS c
+--          JOIN ACCOUNTS a ON c.customer_id = a.customer_id
+-- GROUP BY c.first_name, c.last_name
+-- HAVING COUNT(a.account_id) > 1
+-- ORDER BY total_balance DESC;
