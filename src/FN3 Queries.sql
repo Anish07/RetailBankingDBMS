@@ -41,7 +41,7 @@ SELECT DISTINCT type, SUM(amount) AS total_amount FROM TRANSACTIONS GROUP BY typ
 SELECT account_id, balance, currency FROM ACCOUNTS WHERE status <> 0 GROUP BY account_id, balance, currency ORDER BY balance DESC
 SELECT DISTINCT value, description FROM KYC ORDER BY value DESC
 SELECT category, COUNT(product_id) AS product_count FROM ACCOUNT_STRUCT GROUP BY category ORDER BY product_count DESC
-
+--
 -- SELECT AVG(balance) AS average_balance
 -- FROM ACCOUNTS a
 -- WHERE EXISTS (

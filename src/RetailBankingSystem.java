@@ -197,6 +197,7 @@ public class RetailBankingSystem extends JFrame {
 
         try {
             connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            JOptionPane.showConfirmDialog(null, "You can only delete rows that do not have a reference to another table","WARNING", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
             String tableName = JOptionPane.showInputDialog(this, "Enter the table name you would like to delete from:");
             String columnName = JOptionPane.showInputDialog(this, "Enter the column name you would like to use for deletion:");
             String id = JOptionPane.showInputDialog(this, "Enter the primary key of the record to delete:");
